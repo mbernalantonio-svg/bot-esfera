@@ -1,0 +1,29 @@
+name: Monitor Esfera Disney
+
+on:
+  schedule:
+    # Executa automaticamente de 6 em 6 horas todos os dias
+    - cron: '0 */6 * * *'
+  workflow_dispatch: # Permite disparar manualmente pelo botão no site quando quiser
+
+jobs:
+  executar-monitor:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Baixar código do repositório
+        uses: actions/checkout@v4
+
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Instalar biblioteca requests
+        run: pip install requests
+
+      - name: Executar monitoramento Esfera
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: python esfera_monitor.py
