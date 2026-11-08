@@ -2,9 +2,10 @@ name: Monitor Esfera Disney
 
 on:
   schedule:
-    # Executa automaticamente de 6 em 6 horas todos os dias
-    - cron: '0 */6 * * *'
-  workflow_dispatch: # Permite disparar manualmente pelo botão no site quando quiser
+    # Horário ajustado para Brasília (UTC-3):
+    # 03:15, 09:15, 15:15 e 21:15 UTC equivalem a 00:15, 06:15, 12:15 e 18:15 no Brasil
+    - cron: '15 3,9,15,21 * * *'
+  workflow_dispatch: # Permite rodar manualmente pelo botão no site quando quiser
 
 jobs:
   executar-monitor:
